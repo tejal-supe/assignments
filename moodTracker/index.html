@@ -1,38 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Daily Mood Tracker</title>
     <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- 
     1) Display all the mood's for the user to select
-    2) to give submit button for storing the mood or to just store the mood on click?
-            - if i give submit button need to have a input field
-            - if i directly do it on click i can use button
+    2) directly do it on click- > i can use button
     3) Store the mood to localstorage( in array format)
     4) Display the mood to the user in day/week/month format(in calender view)
     -->
 
     <div class="mood-tracker">
-      <h1>Track your mood</h1>
-      <!-- Display all the mood's for the user to select -->
+        <h1>How are you Feeling Today?</h1>
+        <!-- Display all the mood's for the user to select -->
 
-      <div class="display-mood">
-        <button class="mood-emoji">😊 Happy</button>
-        <button class="mood-emoji">😔 Sad</button>
-        <button class="mood-emoji">😐 Neutral</button>
-        <button class="mood-emoji">🤩 Excited</button>
-        <button class="mood-emoji">😠 Angry</button>
-        <button class="mood-emoji">😪 Tired</button>
-        <button class="mood-emoji">😕 Confused</button>
-        <button class="mood-emoji">😴 Sleepy</button>
-        <button class="mood-emoji">😢 Crying</button>
-        <button class="mood-emoji">🤔 Thinking</button>
-      </div>
+        <div class="display-mood">
+            <button class="mood-emoji">😊 Happy</button>
+            <button class="mood-emoji">😔 Sad</button>
+            <button class="mood-emoji">😐 Neutral</button>
+            <button class="mood-emoji">🤩 Excited</button>
+            <button class="mood-emoji">😠 Angry</button>
+            <button class="mood-emoji">😪 Tired</button>
+            <button class="mood-emoji">😕 Confused</button>
+            <button class="mood-emoji">😴 Sleepy</button>
+            <button class="mood-emoji">😢 Crying</button>
+            <button class="mood-emoji">🤔 Thinking</button>
+        </div>
+
+        <!-- Render the Selected mood -->
+
+        <h2>View your Mood History</h2>
+        <div class="filter-buttons">
+            <button class="filter-button selected-filter">Day</button>
+            <button class="filter-button">Week</button>
+            <button class="filter-button">Month</button>
+        </div>
+        <div id="mood-history"></div>
+    </div>
     </div>
     <script src="./script.js"></script>
-  </body>
+</body>
+
 </html>
