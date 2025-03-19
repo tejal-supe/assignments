@@ -3,8 +3,25 @@ const moodArray = JSON.parse(localStorage.getItem("moodHistory")) || [];
 const calendar = document.getElementById("calendar");
 const filterButtons = document.querySelectorAll(".filter-button");
 const moodHistory = document.getElementById("mood-history");
-let currentDate = new Date(); // Track the current date for navigation
+let currentDate = new Date();
 let currentView = "Day";
+const options = {
+  year: "numeric",
+  month: "long",
+  day: "2-digit",
+};
+const highlightCurrentMood = () => {
+  const today = new Date().toLocaleDateString();
+  const moodEntry = moodArray.find((entry) => entry.date === today);
+
+  if (moodEntry) {
+    moodInput.forEach((btn) => {
+      if (btn.textContent === moodEntry.mood) {
+        btn.classList.add("selected-emoji");
+      }
+    });
+  }
+};
 
 moodInput.forEach((btn) =>
   btn.addEventListener("click", () => {
@@ -16,10 +33,7 @@ moodInput.forEach((btn) =>
 );
 
 const saveMood = (mood) => {
-  //1) get todays date as we will have to display it on calender for today
-  // 2) check if the date already exists
-  // 3) If yes, replace the date, bcoz if the user clicks twice it will create a new entry
-  // if no, the directly push in the array
+  // update existing or add new
   const today = new Date().toLocaleDateString();
   const existingIndex = moodArray.findIndex((entry) => entry.date === today);
 
@@ -32,7 +46,7 @@ const saveMood = (mood) => {
   renderCalendar();
 };
 
-// day/week/month view 
+// day/week/month view
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     filterButtons.forEach((btn) => btn.classList.remove("selected-filter"));
@@ -59,14 +73,39 @@ function renderCalendar() {
 const dateStr = new Date().toLocaleDateString();
 const moodEntry = moodArray.find((entry) => entry.date === dateStr);
 
+const daysOfWeek = () => {
+  const days = ["Sun", "Mon", "Tues", "Wed", "Thrus", "Fri", "Sat"];
+  const weekdayRow = document.createElement("div");
+  weekdayRow.className = "weekday-row";
+
+  days.forEach((day) => {
+    const weekdayCell = document.createElement("div");
+    weekdayCell.className = "weekday-cell";
+    weekdayCell.textContent = day;
+    weekdayRow.appendChild(weekdayCell);
+  });
+
+  moodHistory.appendChild(weekdayRow);
+};
+
 const renderDayCalendar = () => {
-  moodHistory.textContent += new Date().getDate();
-  moodHistory.textContent += ` ${moodEntry.mood}`;
+  moodHistory.textContent += new Date().toLocaleDateString("en-GB", options);
+  moodHistory.textContent += ` - ${
+    moodEntry ? moodEntry.mood : "No mood data"
+  } `;
 };
 
 const renderMonthCalendar = () => {
-  const firstDayOfMonth = new Date(currentDate.getFullYear(),currentDate.getMonth(),1);
-  const daysInMonth = new Date(currentDate.getFullYear(),currentDate.getMonth() + 1,0).getDate();
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+  const daysInMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  ).getDate();
 
   // Create the calendar header (month and year)
   const header = document.createElement("div");
@@ -81,18 +120,9 @@ const renderMonthCalendar = () => {
   const grid = document.createElement("div");
   grid.className = "calendar-grid";
 
-  const days = ["Sun", "Mon", "Tues", "Wed", "Thrus", "Fri", "Sat"];
-  const weekdayRow = document.createElement("div");
-  weekdayRow.className = "weekday-row";
-  days.forEach((day) => {
-    const weekdayCell = document.createElement("div");
-    weekdayCell.className = "weekday-cell";
-    weekdayCell.textContent = day;
-    weekdayRow.appendChild(weekdayCell);
-  });
-  moodHistory.appendChild(weekdayRow);
+  daysOfWeek();
 
-  // Add empty cells for days before the first day of the month
+  // Add empty cells for days before the first day of the month to align it with the days
   for (let i = 0; i < firstDayOfMonth.getDay(); i++) {
     const emptyCell = document.createElement("div");
     emptyCell.className = "calendar-day empty";
@@ -111,10 +141,12 @@ const renderMonthCalendar = () => {
     const dayCell = document.createElement("div");
     dayCell.className = "calendar-day";
     dayCell.textContent = day;
+    if (day === currentDate.getDate()) {
+      dayCell.classList.add("has-mood");
+    }
 
     if (moodEntry) {
       dayCell.textContent += ` ${moodEntry.mood}`;
-      dayCell.classList.add("has-mood");
     }
     grid.appendChild(dayCell);
   }
@@ -127,8 +159,19 @@ const renderWeekCalender = () => {
   const endOfWeek = new Date(currentDate);
   endOfWeek.setDate(currentDate.getDate() + (6 - currentDate.getDay())); // End of the week (Saturday)
 
+  // Create the calendar header (week range)
+  const header = document.createElement("div");
+  header.className = "calendar-header";
+  header.textContent = `Week from ${startOfWeek.toLocaleDateString(
+    "en-GB",
+    options
+  )} to ${endOfWeek.toLocaleDateString("en-GB", options)}`;
+  moodHistory.appendChild(header);
+
   const grid = document.createElement("div");
   grid.className = "calendar-grid";
+
+  daysOfWeek();
 
   for (let i = 0; i < 7; i++) {
     const day = new Date(startOfWeek);
@@ -138,10 +181,14 @@ const renderWeekCalender = () => {
     const dayCell = document.createElement("div");
     dayCell.className = "calendar-day";
     dayCell.textContent = day.getDate();
-      
+    console.log(day, currentDate);
+
+    if (day.getDate() === currentDate.getDate()) {
+      dayCell.classList.add("has-mood");
+    }
+
     if (moodEntry) {
       dayCell.textContent += ` ${moodEntry.mood}`;
-      dayCell.classList.add("has-mood");
     }
     grid.appendChild(dayCell);
   }
@@ -149,3 +196,4 @@ const renderWeekCalender = () => {
 };
 
 renderCalendar();
+highlightCurrentMood();
