@@ -12,3 +12,8 @@
 - CSS
 - JS
 
+## Screenshots :
+![home](image.png)
+
+## Deployment Url 
+### Live Url - 

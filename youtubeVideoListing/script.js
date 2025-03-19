@@ -1,4 +1,5 @@
 const ytVideosContainer = document.getElementById("video-container");
+const noDataAvailable = document.getElementById("no-data");
 
 const fetchVideoData = async () => {
   const url = "https://api.freeapi.app/api/v1/public/youtube/videos";
@@ -7,7 +8,6 @@ const fetchVideoData = async () => {
   try {
     const response = await fetch(url, options);
     const data = await response.json();
-    console.log(data);
     renderDataToHtml(data?.data?.data);
   } catch (error) {
     console.error(error);
@@ -34,4 +34,23 @@ const renderDataToHtml = (data) => {
   });
 };
 
+
+const searchVideos = (value) => {
+    const videoCards = document.querySelectorAll(".card");
+    videoCards.forEach(card => {
+        const title = card
+          .querySelector(".video-title")
+          .textContent.toLowerCase();
+      
+        if (title.includes(value) ) {
+            card.style.display = "block";
+            noDataAvailable.style.display = "none";
+        } else {
+            card.style.display = "none";
+            noDataAvailable.style.display="block"
+            
+        }
+    })
+    
+}
 fetchVideoData();

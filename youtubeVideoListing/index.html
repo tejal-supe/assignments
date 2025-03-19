@@ -10,10 +10,12 @@
     <div class="yt-listing">
 
         <div class="search-bar">
-            <input type="text">
+            <!-- oninput bcoz for onchange we have remove the cursor for the function to call -->
+            <input type="text" value="" placeholder="Search..." oninput="searchVideos(this.value)">
         </div>
 
         <div class="yt-videos" id="video-container"></div>
+          <div id="no-data" class="no-data" style="display: none;">No Data Available</div>
 
     </div>
     <script src="./script.js"></script>
