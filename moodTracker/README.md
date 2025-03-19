@@ -17,3 +17,4 @@
 ![moodtracker](image-1.png)
 
 ## Deployment Url
+### Live Url - https://mood-tracker-seven-blush.vercel.app/

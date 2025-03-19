@@ -50,7 +50,6 @@ const saveMood = (mood) => {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     filterButtons.forEach((btn) => btn.classList.remove("selected-filter"));
-    console.log(button.textContent);
 
     const filter = button.textContent;
     currentView = filter; // Update the current view
@@ -89,10 +88,15 @@ const daysOfWeek = () => {
 };
 
 const renderDayCalendar = () => {
-  moodHistory.textContent += new Date().toLocaleDateString("en-GB", options);
-  moodHistory.textContent += ` - ${
-    moodEntry ? moodEntry.mood : "No mood data"
-  } `;
+ const today = new Date().toLocaleDateString();
+ const moodEntry = moodArray.find((entry) => entry.date === today);
+
+ const dayContent = document.createElement("div");
+ dayContent.className = "day-content";
+ dayContent.textContent = `Today's Mood: ${
+   moodEntry ? moodEntry.mood : "No mood logged"
+ }`;
+ moodHistory.appendChild(dayContent);
 };
 
 const renderMonthCalendar = () => {
@@ -181,7 +185,6 @@ const renderWeekCalender = () => {
     const dayCell = document.createElement("div");
     dayCell.className = "calendar-day";
     dayCell.textContent = day.getDate();
-    console.log(day, currentDate);
 
     if (day.getDate() === currentDate.getDate()) {
       dayCell.classList.add("has-mood");
