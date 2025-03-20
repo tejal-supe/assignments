@@ -17,7 +17,7 @@ Website that fetches and displays a random quote from the API.
 - html2canvas (for downloading the quote)
 
 ## Screenshots :
-
+![alt text](image.png)
 
 ## Deployment Url 
 ### Live Url - https://quote-of-the-day-gray.vercel.app/
