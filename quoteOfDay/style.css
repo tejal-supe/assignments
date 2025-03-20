@@ -1,0 +1,60 @@
+.qoutes {
+  text-align: center;
+  padding: 50px 40px;
+  background-color: seagreen;
+  background-size: cover;
+  background-position: center;
+  min-height: 200px;
+  color: thistle;
+  align-content: center;
+  letter-spacing: 0.7px;
+  max-width: 600px;
+  margin-bottom: 10px ;
+}
+
+.container {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  padding: 40px;
+  background-color: palegoldenrod;
+  background-size: cover;
+  background-position: center;
+  max-width: 600px;
+  margin: 10px auto;
+}
+
+.quote-content {
+  font-size: 24px;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.quote-author {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 15px;
+}
+
+.buttons {
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px 20px;
+  margin:5px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #007bff;
+  color: white;
+  width: 250px;
+}
+
+button:hover {
+  background: #0056b3;
+}
