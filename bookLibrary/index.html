@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+        <div class="book-libray-div">
+            <section class="menu-section">
+                <input type="text" placeholder="search">
+                <button>List</button>
+                <button>Grid</button>
+               Sort :  <select name="sort" id="book-sort">
+                        <option value="title">title</option>
+                        <option value="publishedDate">date of release</option>
+                </select>
+            </section>
+            <section class="books" id="books-div"></section>
+            <section class="pagination">
+                <button id="prev" onclick="goToPrevPage()">Prev</button>
+                    <span class="page-no" id="pageNo"></span>
+                <button id="next" onclick="goToNextPage()">Next</button>
+            </section>
+        </div>
+    <script src="./script.js"></script>
+</body>
+</html>
